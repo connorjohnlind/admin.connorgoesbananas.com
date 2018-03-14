@@ -7,19 +7,38 @@ const he = require('he');
 
 // MongoDB
 require('./db/mongoose');
+const { Post } = require('./models/post');
 
 // Express
 const app = express();
 const port = process.env.PORT;
 
 app.use(bodyParser.json());
+app.use(express.static('client/dist'));
 
-// SPA in production, but two dev servers in development
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/dist'));
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
+});
+
+app.post('/api/post', async (req, res) => {
+  const { title, html, urlTitle } = req.body;
+  const post = new Post({
+    title,
+    urlTitle,
+    html: he.encode(html),
+    datePosted: Date.now(),
+    lastModified: Date.now(),
   });
-}
 
-app.listen(port, () => console.log(`Server is up on port ${port}`));
+  try {
+    await post.save();
+    res.send(post);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+});
+
+
+app.listen(port, () => {
+  console.log(`Server is up on port ${port}`);
+});
