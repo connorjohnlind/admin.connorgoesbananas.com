@@ -1,17 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import formFields from './formfields';
-import * as actions from '../../store/actions';
+import he from 'he';
 import { withRouter } from 'react-router-dom';
 
-const PostReview = ({ onCancel, formValues, history }) => {
+import formFields from './formfields';
+import * as actions from '../../store/actions';
+
+const PostReview = ({ onCancel, formValues, submitForm, history }) => {
   const reviewFields = formFields.map(({ name, label }) => (
     <div key={name}>
       <label>{label}</label>
       <div>{formValues[name]}</div>
     </div>
   ));
-
+  const submitFormHandler = () => {
+    formValues.html = he.encode(formValues.html);
+    submitForm(formValues, history);
+  };
   return (
     <div>
       <h5>Please confirm your entries</h5>
@@ -19,14 +24,14 @@ const PostReview = ({ onCancel, formValues, history }) => {
         {reviewFields}
       </div>
       <button
-        className="yellow darken-3 white-text btn-flat"
+        className=""
         onClick={onCancel}
       >
         Back
       </button>
       <button
-        className="green btn-flat white-text right"
-        onClick={() => console.log(formValues)}
+        className=""
+        onClick={() => submitFormHandler()}
       >
         Post
       </button>

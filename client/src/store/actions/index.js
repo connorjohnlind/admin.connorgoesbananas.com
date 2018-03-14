@@ -1,4 +1,3 @@
 export {
-  action,
-  otherAction,
+  submitForm,
 } from './post';

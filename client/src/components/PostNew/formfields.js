@@ -1,6 +1,5 @@
 export default [
   { label: 'Post Title', name: 'title' },
-  { label: 'Subject Line', name: 'subject' },
-  { label: 'Email Body', name: 'body' },
-  { label: 'Recipient List', name: 'recipients' },
+  { label: 'Url Title', name: 'urlTitle' },
+  { label: 'HTML', name: 'html' },
 ];
