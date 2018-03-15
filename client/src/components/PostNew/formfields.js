@@ -1,5 +1,20 @@
 export default [
-  { label: 'Post Title', name: 'title' },
-  { label: 'Url Title', name: 'urlTitle' },
-  { label: 'HTML', name: 'html' },
+  {
+    label: 'Title',
+    type: 'text',
+    tag: 'input',
+    name: 'title',
+  },
+  {
+    label: 'Url Title',
+    type: 'text',
+    tag: 'input',
+    name: 'urlTitle',
+  },
+  {
+    label: 'HTML',
+    type: 'text',
+    tag: 'textarea',
+    name: 'html',
+  },
 ];

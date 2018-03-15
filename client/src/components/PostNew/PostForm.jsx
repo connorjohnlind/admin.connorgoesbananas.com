@@ -5,14 +5,27 @@ import { Link } from 'react-router-dom';
 import PostField from './PostField';
 import formFields from './formfields';
 
+const validate = (values) => {
+  const errors = {};
+
+  formFields.forEach(({ name, label }) => {
+    if (!values[name]) {
+      errors[name] = `${label} Required`;
+    }
+  });
+
+  return errors;
+};
+
 class PostForm extends Component {
   renderFormFields = () => {
-    const fields = formFields.map(({ label, name }) => (
+    const fields = formFields.map(({ label, type, name, tag }) => ( // eslint-disable-line object-curly-newline, max-len
       <Field
         key={name}
-        type="text"
+        type={type}
         name={name}
-        label={label}
+        tag={tag}
+        placeholder={label}
         component={PostField}
       />
     ));
@@ -38,7 +51,7 @@ class PostForm extends Component {
 }
 
 export default reduxForm({
-  // validate,
+  validate,
   form: 'postForm',
   destroyOnUnmount: false,
 })(PostForm);

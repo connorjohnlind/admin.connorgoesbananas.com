@@ -1,13 +1,40 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default ({ input, label, meta: { error, touched } }) => {
+const PostField = (props) => {
+  const Tag = `${props.tag}`;
+
+  let placeholderText;
+  let placeholderStyle;
+
+  if (props.meta.touched && props.meta.error) {
+    placeholderText = props.meta.touched && props.meta.error;
+    placeholderStyle = 'validation-error';
+  } else {
+    placeholderText = props.placeholder;
+  }
+
   return (
     <div>
-      <label>{label}</label>
-      <input {...input} style={{marginBottom: '5px'}}/>
-      <div className="red-text" style={{marginBottom: '20px'}}>
-        {touched && error}
-      </div>
+      <Tag
+        placeholder={placeholderText}
+        className={placeholderStyle}
+        type={props.type}
+        {...props.input}
+      />
     </div>
-  )
-}
+  );
+};
+
+PostField.propTypes = {
+  input: PropTypes.shape({}).isRequired,
+  meta: PropTypes.shape({
+    error: PropTypes.string,
+    touched: PropTypes.isRequired,
+  }).isRequired,
+  placeholder: PropTypes.string.isRequired,
+  tag: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+};
+
+export default PostField;
