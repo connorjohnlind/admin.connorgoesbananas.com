@@ -35,20 +35,30 @@ class LoginForm extends Component {
     return <div>{fields}</div>;
   }
   render() {
+    const {
+      err, history, handleSubmit, authLogin,
+    } = this.props;
     return (
-      <form onSubmit={this.props.handleSubmit(values => this.props.authLogin(values, this.props.history))}>
+      <form onSubmit={handleSubmit(vals => authLogin(vals, history))}>
         {this.renderformFields()}
         <button className="contact-submit" type="submit">
           Login
         </button>
+        <p>{err}</p>
       </form>
     );
   }
 }
 
 LoginForm.propTypes = {
+  err: PropTypes.string,
   handleSubmit: PropTypes.func.isRequired,
+  history: PropTypes.shape({}).isRequired,
   authLogin: PropTypes.func.isRequired,
+};
+
+LoginForm.defaultProps = {
+  err: null,
 };
 
 LoginForm = connect( // eslint-disable-line no-class-assign
@@ -59,4 +69,5 @@ LoginForm = connect( // eslint-disable-line no-class-assign
 export default reduxForm({
   validate,
   form: 'loginForm',
+  destroyOnUnmount: true,
 })(LoginForm);

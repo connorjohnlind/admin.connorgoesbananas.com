@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { reset } from 'redux-form';
 import { AUTH_START, AUTH_SUCCESS, AUTH_REVOKE, AUTH_FAIL } from './types';
 
 export const authRevoke = () => ({
@@ -15,6 +16,7 @@ export const authLogin = (values, history) => (async (dispatch) => {
     history.push('/dashboard');
   } catch (error) {
     dispatch({ type: AUTH_FAIL, payload: error.response });
+    dispatch(reset('loginForm'));
   }
 });
 
@@ -22,7 +24,7 @@ export const authLogin = (values, history) => (async (dispatch) => {
 export const authRenew = (token, history) => (async (dispatch) => {
   try {
     dispatch({ type: AUTH_START });
-    const auth = await axios.post('/auth/renew', token);
+    await axios.post('/auth/renew', token);
     dispatch({ type: AUTH_SUCCESS, payload: token.token });
     history.push('/dashboard');
   } catch (error) {
