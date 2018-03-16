@@ -1,0 +1,9 @@
+@import '../../scss/base';
+@import '../../scss/format';
+
+.Dashboard {
+  @extend .card;
+  @extend .flex;
+  @extend .col;
+  width: 50%;
+}

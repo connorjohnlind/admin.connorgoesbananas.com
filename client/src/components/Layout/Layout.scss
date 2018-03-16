@@ -1,0 +1,12 @@
+@import '../../scss/format';
+
+.Layout {
+  @extend .flex;
+  @extend .row;
+}
+
+.main {
+  @extend .flex;
+  @extend .col;
+  margin-left: 15%;
+}

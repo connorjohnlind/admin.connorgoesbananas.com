@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Topbar from '../Navigation/Topbar';
+import Sidebar from './Sidebar/Sidebar';
+
+import './Layout.scss';
 
 const Layout = props => (
-  <div>
-    <Topbar />
-    <main>{props.children}</main>
+  <div className="Layout">
+    <Sidebar />
+    <main className="main">{props.children}</main>
   </div>
 );
 

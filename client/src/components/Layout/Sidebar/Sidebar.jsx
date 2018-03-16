@@ -3,22 +3,27 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import * as actions from '../../store/actions/index';
+import * as actions from '../../../store/actions';
 
-class Topbar extends Component {
+import './Sidebar.scss';
+
+class Sidebar extends Component {
   logoutHandler = () => {
     localStorage.removeItem('token');
     this.props.authRevoke();
   }
   render() {
-    if (this.props.auth.token) {
-      return <button onClick={this.logoutHandler}>Logout</button>;
-    }
-    return null;
+    return (
+      <div className="Sidebar">
+        <div className="links">
+          <button onClick={this.logoutHandler}>Logout</button>
+        </div>
+      </div>
+    );
   }
 }
 
-Topbar.propTypes = {
+Sidebar.propTypes = {
   auth: PropTypes.shape({
     token: PropTypes.string,
   }).isRequired,
@@ -26,4 +31,4 @@ Topbar.propTypes = {
   history: PropTypes.shape({}).isRequired,
 };
 
-export default connect(({ auth }) => ({ auth }), actions)(withRouter(Topbar));
+export default connect(({ auth }) => ({ auth }), actions)(withRouter(Sidebar));
