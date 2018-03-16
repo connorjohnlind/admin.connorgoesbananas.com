@@ -5,6 +5,7 @@
 /dist
 
 # misc
+dev.config.json
 .DS_Store
 .env.local
 .env.development.local
