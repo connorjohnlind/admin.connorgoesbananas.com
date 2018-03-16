@@ -3,10 +3,13 @@ import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import Aux from '../../utils/Aux';
 
 import * as actions from '../../store/actions';
 import LoginField from './LoginField';
 import formFields from './formFields';
+
+import './LoginForm.scss';
 
 const validate = (values) => {
   const errors = {};
@@ -32,23 +35,25 @@ class LoginForm extends Component {
         component={LoginField}
       />
     ));
-    return <div>{fields}</div>;
+    return <Aux>{fields}</Aux>;
   }
   render() {
     const {
       err, history, handleSubmit, authLogin,
     } = this.props;
     return (
-      <div class="container">
-        <div className="row">
-          <form className="col s12 m6 offset-m3 card blue-grey white-text" onSubmit={handleSubmit(vals => authLogin(vals, history))}>
-            {this.renderformFields()}
-            <button className="btn waves-effect waves-light" type="submit">
-              Login
-            </button>
-            <p>{err}</p>
-          </form>
-        </div>
+      <div className="LoginForm">
+        <h1>Connor Goes Bananas</h1>
+        <form
+          className="form"
+          onSubmit={handleSubmit(vals => authLogin(vals, history))}
+        >
+          {this.renderformFields()}
+          <button className="btn waves-effect waves-light" type="submit">
+            Login
+          </button>
+          { err ? <p>{err}</p> : null}
+        </form>
       </div>
     );
   }

@@ -7,6 +7,8 @@ import LoginForm from './LoginForm';
 import Spinner from '../UI/Spinner/Spinner';
 import * as actions from '../../store/actions';
 
+import './Login.scss';
+
 class Login extends Component {
   componentDidMount() {
     // if redux store is empty and localStorage token present, try to renew
@@ -25,9 +27,7 @@ class Login extends Component {
   }
   render() {
     return (
-      <div>
-        <h3>Connor Goes Bananas</h3>
-        <h1>Content Management System</h1>
+      <div className="flex col">
         {this.renderContent()}
       </div>
     );

@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './LoginField.scss';
+
 const LoginField = (props) => {
   const Tag = `${props.tag}`;
 
@@ -18,7 +20,7 @@ const LoginField = (props) => {
     <div>
       <Tag
         placeholder={placeholderText}
-        className={placeholderStyle}
+        className={`${placeholderStyle} field`}
         type={props.type}
         {...props.input}
       />
