@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import formFields from './formfields';
 import * as actions from '../../store/actions';
 
-const PostReview = ({ onCancel, formValues, submitForm, history }) => {
+const NewPostReview = ({ onCancel, formValues, submitForm, history }) => {
   const reviewFields = formFields.map(({ name, label }) => (
     <div key={name}>
       <label>{label}</label>
@@ -41,4 +41,4 @@ const PostReview = ({ onCancel, formValues, submitForm, history }) => {
 
 const mapStateToProps = state => ({ formValues: state.form.postForm.values });
 
-export default connect(mapStateToProps, actions)(withRouter(PostReview));
+export default connect(mapStateToProps, actions)(withRouter(NewPostReview));

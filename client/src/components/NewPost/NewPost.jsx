@@ -2,23 +2,23 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { reduxForm } from 'redux-form';
 
-import PostForm from './PostForm';
-import PostReview from './PostReview';
+import NewPostForm from './NewPostForm';
+import NewPostReview from './NewPostReview';
 
-class PostNew extends Component {
+class NewPostNew extends Component {
   state = {
     showFormReview: false,
   }
   renderContent() {
     if (this.state.showFormReview) {
       return (
-        <PostReview
+        <NewPostReview
           onCancel={() => this.setState({ showFormReview: false })}
         />
       );
     }
     return (
-      <PostForm
+      <NewPostForm
         onFormSubmit={() => this.setState({ showFormReview: true })}
       />
     );
@@ -34,4 +34,4 @@ class PostNew extends Component {
 
 export default reduxForm({
   form: 'postForm',
-})(PostNew);
+})(NewPostNew);

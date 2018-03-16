@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { Link } from 'react-router-dom';
 
-import PostField from './PostField';
+import NewPostField from './NewPostField';
 import formFields from './formfields';
 
 const validate = (values) => {
@@ -17,7 +17,7 @@ const validate = (values) => {
   return errors;
 };
 
-class PostForm extends Component {
+class NewPostForm extends Component {
   renderFormFields = () => {
     const fields = formFields.map(({ label, type, name, tag }) => ( // eslint-disable-line object-curly-newline, max-len
       <Field
@@ -26,7 +26,7 @@ class PostForm extends Component {
         name={name}
         tag={tag}
         placeholder={label}
-        component={PostField}
+        component={NewPostField}
       />
     ));
     return <div>{fields}</div>;
@@ -37,7 +37,7 @@ class PostForm extends Component {
         <form onSubmit={this.props.handleSubmit(this.props.onFormSubmit)}>
           {this.renderFormFields()}
           <button>
-            <Link to="/" className="">
+            <Link to="/dashboard" className="">
               Cancel
             </Link>
           </button>
@@ -54,4 +54,4 @@ export default reduxForm({
   validate,
   form: 'postForm',
   destroyOnUnmount: false,
-})(PostForm);
+})(NewPostForm);

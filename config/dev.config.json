@@ -2,7 +2,7 @@
   "test": {
     "PORT": 3000,
     "MONGODB_URI": "mongodb://localhost:27017/CGB-test",
-    "JWT_SECRET": "",
+    "JWT_SECRET": "fdnafb23hlb354lhbl15",
     "AWS_ACCESS_KEY_ID": "AKIAJRETH5Y52ZI6632A",
     "AWS_SECRET_ACCESS_KEY": "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",
     "S3_BUCKET_NAME": "connorgoesbananas-assets"
@@ -10,7 +10,7 @@
   "development": {
     "PORT": 3000,
     "MONGODB_URI": "mongodb://localhost:27017/CGB-dev",
-    "JWT_SECRET": "",
+    "JWT_SECRET": "fdnafb23hlb354lhbl15",
     "AWS_ACCESS_KEY_ID": "AKIAJRETH5Y52ZI6632A",
     "AWS_SECRET_ACCESS_KEY": "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",
     "S3_BUCKET_NAME": "connorgoesbananas-assets"
