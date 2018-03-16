@@ -26,13 +26,13 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => ({
-  token: state.auth.token,
+  token: state.auth.string,
   error: state.auth.error,
   loading: state.auth.loading,
 });
 
 Login.propTypes = {
-  token: PropTypes.bool,
+  token: PropTypes.string,
   error: PropTypes.shape({}),
   loading: PropTypes.bool,
 };

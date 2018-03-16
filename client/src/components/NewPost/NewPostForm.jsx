@@ -37,7 +37,7 @@ class NewPostForm extends Component {
         <form onSubmit={this.props.handleSubmit(this.props.onFormSubmit)}>
           {this.renderFormFields()}
           <button>
-            <Link to="/" className="">
+            <Link to="/dashboard" className="">
               Cancel
             </Link>
           </button>

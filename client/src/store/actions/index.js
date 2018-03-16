@@ -1,5 +1,5 @@
 export {
-  authInit,
+  authLogin,
   authRenew,
   authRevoke,
 } from './auth';

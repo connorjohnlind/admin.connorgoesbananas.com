@@ -6,16 +6,16 @@ export const authRevoke = () => ({
 });
 
 // handles the token exchange on the backend
-export const authInit = () => (async (dispatch) => {
+export const authLogin = (values, history) => (async (dispatch) => {
   try {
     dispatch({ type: AUTH_START });
-    const auth = await axios.post(``);
-    dispatch({ type: AUTH_SUCCESS, payload: auth.token });
-    localStorage.setItem('token', auth.data.token);
+    const auth = await axios.post('/auth/login', values);
+    dispatch({ type: AUTH_SUCCESS, payload: auth.headers['x-auth'] });
+    localStorage.setItem('token', auth.headers['x-auth']);
   } catch (error) {
     dispatch({ type: AUTH_FAIL, payload: error.response });
   }
-  window.history.replaceState({}, document.title, '/dashboard');
+  history.push('/dashboard');
 });
 
 // for revists, where the token is stored in localStorage

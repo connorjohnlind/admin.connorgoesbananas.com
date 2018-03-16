@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
 import * as actions from '../../store/actions';
 import LoginField from './LoginField';
@@ -35,10 +36,10 @@ class LoginForm extends Component {
   }
   render() {
     return (
-      <form onSubmit={this.props.handleSubmit(values => this.props.authInit(values))}>
+      <form onSubmit={this.props.handleSubmit(values => this.props.authLogin(values, this.props.history))}>
         {this.renderformFields()}
         <button className="contact-submit" type="submit">
-          Submit
+          Login
         </button>
       </form>
     );
@@ -47,13 +48,13 @@ class LoginForm extends Component {
 
 LoginForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  authInit: PropTypes.func.isRequired,
+  authLogin: PropTypes.func.isRequired,
 };
 
 LoginForm = connect( // eslint-disable-line no-class-assign
   null,
   actions,
-)(LoginForm);
+)(withRouter(LoginForm));
 
 export default reduxForm({
   validate,

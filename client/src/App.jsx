@@ -1,15 +1,41 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
+
 import Login from './components/Login/Login';
 import Dashboard from './components/Dashboard/Dashboard';
-import NewPost from './components/NewPost/NewPost';
+import PostNew from './components/NewPost/NewPost';
+import Aux from './utils/Aux';
 
-const App = () => (
-  <div>
-    <Route path="/" exact component={Login} />
-    <Route path="/dashboard" exact component={Dashboard} />
-    <Route path="/new-post" exact component={NewPost} />
-  </div>
-);
+const App = (props) => {
+  let routes = (
+    <Switch>
+      <Route path="/" exact component={Login} />
+      <Redirect to="/" />
+    </Switch>
+  );
 
-export default App;
+  if (props.auth.token) {
+    routes = (
+      <Aux>
+        <Route path="/dashboard" exact component={Dashboard} />
+        <Route path="/new-post" exact component={PostNew} />
+      </Aux>
+    );
+  }
+
+  return (
+    <div>
+      {routes}
+    </div>
+  );
+};
+
+App.propTypes = {
+  auth: PropTypes.shape({
+    token: PropTypes.string,
+  }).isRequired,
+};
+
+export default withRouter(connect(({ auth }) => ({ auth }))(App));
