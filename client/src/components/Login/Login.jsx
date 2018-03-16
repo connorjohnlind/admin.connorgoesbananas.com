@@ -26,6 +26,8 @@ class Login extends Component {
   render() {
     return (
       <div>
+        <h3>Connor Goes Bananas</h3>
+        <h1>Content Management System</h1>
         {this.renderContent()}
       </div>
     );

@@ -27,11 +27,10 @@ module.exports = {
       {
         test: /\.(jsx|js)$/,
         loader: 'babel-loader',
-        exclude: /node_modules/,
+        // exclude: /node_modules/,
       },
       {
         test: /\.(scss|sass|css)$/,
-        exclude: /node_modules/,
         use: [
           {
             loader: 'style-loader',
@@ -60,18 +59,10 @@ module.exports = {
           },
         ],
       },
-      {
-        test: /\.(png|jpe?g|gif|svg)$/,
-        loader: 'url-loader?limit=8000&name=images/[name].[ext]',
-      },
-      {
-        test: /\.[ot]tf$/,
-        loader: 'url-loader?limit=65000&mimetype=application/octet-stream&name=fonts/[name].[ext]',
-      },
-      {
-        test: /\.(ico)$/, // favicon
-        loader: 'file-loader?name=[name].[ext]',
-      },
+      { test: /\.(png|jpe?g|gif|svg)$/, loader: 'url-loader?limit=8000&name=images/[name].[ext]' },
+      { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff' },
+      { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader' },
+      { test: /\.(ico)$/, loader: 'file-loader?name=[name].[ext]' },
     ],
   },
   plugins: [

@@ -41,7 +41,7 @@ class LoginForm extends Component {
     return (
       <form onSubmit={handleSubmit(vals => authLogin(vals, history))}>
         {this.renderformFields()}
-        <button className="contact-submit" type="submit">
+        <button className="btn waves-effect waves-light" type="submit">
           Login
         </button>
         <p>{err}</p>
