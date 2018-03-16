@@ -39,13 +39,17 @@ class LoginForm extends Component {
       err, history, handleSubmit, authLogin,
     } = this.props;
     return (
-      <form onSubmit={handleSubmit(vals => authLogin(vals, history))}>
-        {this.renderformFields()}
-        <button className="btn waves-effect waves-light" type="submit">
-          Login
-        </button>
-        <p>{err}</p>
-      </form>
+      <div class="container">
+        <div className="row">
+          <form className="col s12 m6 offset-m3 card blue-grey white-text" onSubmit={handleSubmit(vals => authLogin(vals, history))}>
+            {this.renderformFields()}
+            <button className="btn waves-effect waves-light" type="submit">
+              Login
+            </button>
+            <p>{err}</p>
+          </form>
+        </div>
+      </div>
     );
   }
 }
