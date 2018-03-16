@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
 
+import Layout from './components/Layout/Layout';
 import Login from './components/Login/Login';
 import Dashboard from './components/Dashboard/Dashboard';
 import PostNew from './components/NewPost/NewPost';
-import Aux from './utils/Aux';
 
 const App = (props) => {
   let routes = (
@@ -18,10 +18,10 @@ const App = (props) => {
 
   if (props.auth.token) {
     routes = (
-      <Aux>
+      <Layout>
         <Route path="/dashboard" exact component={Dashboard} />
         <Route path="/new-post" exact component={PostNew} />
-      </Aux>
+      </Layout>
     );
   }
 

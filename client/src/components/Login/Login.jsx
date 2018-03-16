@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
 import LoginForm from './LoginForm';
 import Spinner from '../UI/Spinner/Spinner';
+import * as actions from '../../store/actions';
 
 class Login extends Component {
   renderContent() {
-    if (this.props.error) {
-      return <div>{this.props.error}</div>;
-    } else if (this.props.loading) {
+    if (this.props.auth.error) {
+      localStorage.removeItem('token'); // prevents error message on a reload
+      return <div>{this.props.auth.error}</div>;
+    } else if (this.props.auth.loading) {
       return <Spinner />;
-    } else if (this.props.token) {
-      return <Dashboard />;
+    } else if (!this.props.auth.loading && localStorage.getItem('token')) {
+      this.props.authRenew({ token: localStorage.getItem('token') }, this.props.history);
+      return <Spinner />;
     }
     return <LoginForm />;
   }
@@ -24,12 +28,6 @@ class Login extends Component {
     );
   }
 }
-
-const mapStateToProps = state => ({
-  token: state.auth.string,
-  error: state.auth.error,
-  loading: state.auth.loading,
-});
 
 Login.propTypes = {
   token: PropTypes.string,
@@ -43,4 +41,4 @@ Login.defaultProps = {
   loading: null,
 };
 
-export default connect(mapStateToProps)(Login);
+export default connect(({ auth }) => ({ auth }), actions)(withRouter(Login));
