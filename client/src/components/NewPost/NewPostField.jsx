@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const PostField = (props) => {
+const NewPostField = (props) => {
   const Tag = `${props.tag}`;
 
   let placeholderText;
@@ -26,7 +26,7 @@ const PostField = (props) => {
   );
 };
 
-PostField.propTypes = {
+NewPostField.propTypes = {
   input: PropTypes.shape({}).isRequired,
   meta: PropTypes.shape({
     error: PropTypes.string,
@@ -37,4 +37,4 @@ PostField.propTypes = {
   type: PropTypes.string.isRequired,
 };
 
-export default PostField;
+export default NewPostField;

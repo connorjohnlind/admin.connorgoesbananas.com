@@ -1,0 +1,6 @@
+@import '../../scss/format';
+
+.dashboard {
+  @extend .flexcol;
+  padding-top: 50px;
+}

@@ -1,29 +1,34 @@
-import { POST_START, POST_SUCCESS, POST_FAIL } from '../actions/types';
+import { AUTH_START, AUTH_SUCCESS, AUTH_REVOKE, AUTH_FAIL } from '../actions/types';
 import updateObject from '../../utils/updateObject';
 
 const initialState = {
-  complete: null,
+  token: null,
   error: null,
-  loading: null,
+  loading: true,
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case POST_START:
+    case AUTH_START:
       return updateObject(state, {
         loading: true,
       });
-    case POST_SUCCESS:
+    case AUTH_SUCCESS:
       return updateObject(state, {
-        complete: true,
+        token: action.payload,
         error: null,
         loading: false,
       });
-    case POST_FAIL:
+    case AUTH_REVOKE:
       return updateObject(state, {
-        complete: true,
-        error: action.payload,
+        token: null,
+        error: null,
         loading: false,
+      });
+    case AUTH_FAIL:
+      return updateObject(state, {
+        loading: false,
+        error: action.payload,
       });
     default:
       return state;
