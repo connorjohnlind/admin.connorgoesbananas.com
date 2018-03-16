@@ -4,7 +4,7 @@ import updateObject from '../../utils/updateObject';
 const initialState = {
   token: null,
   error: null,
-  loading: true,
+  loading: null,
 };
 
 const reducer = (state = initialState, action) => {
