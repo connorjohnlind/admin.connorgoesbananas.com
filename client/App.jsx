@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
+import { hot } from 'react-hot-loader';
 
 import Layout from './components/Layout/Layout';
 import Login from './components/Login/Login';
@@ -38,4 +39,4 @@ App.propTypes = {
   }).isRequired,
 };
 
-export default withRouter(connect(({ auth }) => ({ auth }))(App));
+export default hot(module)(withRouter(connect(({ auth }) => ({ auth }))(App)));

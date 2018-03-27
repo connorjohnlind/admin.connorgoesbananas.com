@@ -1,0 +1,45 @@
+@import '../../scss/base';
+@import '../../scss/format';
+@import '../../scss/variables';
+
+.title {
+  font-weight: 100;
+  font-size: 100px;
+  color: $cms-blue;
+  margin-bottom: 5%;
+}
+
+.LoginForm {
+  @extend .flex;
+  @extend .col;
+  padding: 20px 0 50px 0;
+  width: 600px;
+
+  .form {
+    @extend .flex;
+    @extend .col;
+    width: 70%;
+
+    & div {
+      margin: 3px 0;
+      width: 100%;
+    }
+
+    & button {
+      margin: 3px 0;
+      width: 30%;
+      align-self: flex-end;
+      text-decoration: none;
+      color: #fff;
+      background-color: $cms-blue;
+      text-align: center;
+      letter-spacing: .5px;
+      border-radius: 5px;
+      height: 36px;
+      line-height: 36px;
+      padding: 0 16px;
+      // box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1),
+      //             0 5px 50px 0 rgba(0, 0, 0, 0.1);
+    }
+  }
+}

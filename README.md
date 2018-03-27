@@ -1,1 +1,1 @@
-# Custom CMS for connorgoesbananas.com
+# Content Management System for connorgoesbananas

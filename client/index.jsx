@@ -8,7 +8,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 
 import './index.scss';
-import './assets/fonts/Roboto/Roboto.scss';
+import './fonts/Roboto/Roboto.scss';
 import App from './App';
 import reducers from './store/reducers';
 

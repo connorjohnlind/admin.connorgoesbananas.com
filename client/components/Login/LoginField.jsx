@@ -17,7 +17,7 @@ const LoginField = (props) => {
   }
 
   return (
-    <div>
+    <div className="field-container">
       <Tag
         placeholder={placeholderText}
         className={`${placeholderStyle} field`}

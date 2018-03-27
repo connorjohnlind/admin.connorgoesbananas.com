@@ -42,19 +42,21 @@ class LoginForm extends Component {
       err, history, handleSubmit, authLogin,
     } = this.props;
     return (
-      <div className="LoginForm">
-        <h1>Connor Goes Bananas</h1>
-        <form
-          className="form"
-          onSubmit={handleSubmit(vals => authLogin(vals, history))}
-        >
-          {this.renderformFields()}
-          <button className="btn waves-effect waves-light" type="submit">
-            Login
-          </button>
-          { err ? <p>{err}</p> : null}
-        </form>
-      </div>
+      <Aux>
+        <h1 className="title">cgb cms</h1>
+        <div className="LoginForm">
+          <form
+            className="form"
+            onSubmit={handleSubmit(vals => authLogin(vals, history))}
+          >
+            {this.renderformFields()}
+            <button type="submit">
+              LOGIN
+            </button>
+            { err ? <p>{err}</p> : null}
+          </form>
+        </div>
+      </Aux>
     );
   }
 }
