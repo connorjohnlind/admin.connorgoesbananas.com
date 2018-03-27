@@ -39,8 +39,12 @@ class LoginForm extends Component {
   }
   render() {
     const {
-      err, history, handleSubmit, authLogin,
+      err,
+      history,
+      handleSubmit,
+      authLogin,
     } = this.props;
+    const d = new Date();
     return (
       <Aux>
         <h1 className="title">cgb cms</h1>
@@ -55,6 +59,10 @@ class LoginForm extends Component {
             </button>
             { err ? <p>{err}</p> : null}
           </form>
+        </div>
+        <div className="login-footer">
+          <p>Connor Lind &copy; {d.getFullYear()}</p>
+          <p>Take a look under the hood on <a href="https://github.com/connorjohnlind/admin.connorgoesbananas.com">Github</a></p>
         </div>
       </Aux>
     );
