@@ -1,28 +1,39 @@
-require('./config/config');
+require('./config/config'); // environment variables for development
 
 const path = require('path');
 const express = require('express');
+const logger = require('morgan');
 const bodyParser = require('body-parser');
-const expressStaticGzip = require('express-static-gzip');
-
-// MongoDB
-require('./db/mongoose');
+const compression = require('compression');
+const passport = require('passport');
 
 const app = express();
 const port = process.env.PORT;
+const routes = require('./routes');
+const models = require('./models');
 
+app.use(logger('dev'));
+app.use(compression());
 app.use(bodyParser.json());
+app.use(passport.initialize());
 
-// Routes
-require('./routes/authRoutes')(app);
-require('./routes/apiRoutes')(app);
+models.sequelize.authenticate().then(() => {
+  console.log('Connected to SQL database:', process.env.DB_NAME);
+}).catch((err) => {
+  console.error('Unable to connect to SQL database:', process.env.DB_NAME, err);
+});
 
-// devServer (catch all)
-require('./config/devServer')(app);
+app.use('/', routes);
 
-// production (catch all)
+if (process.env.NODE_ENV === 'development') {
+  // create tables
+  models.sequelize.sync();
+  // devServer (catch all)
+  require('./config/devServer')(app); // eslint-disable-line global-require
+}
+
 if (process.env.NODE_ENV === 'production') {
-  app.use(expressStaticGzip(path.resolve(__dirname, '..', 'dist'), {
+  app.use(express.static(path.resolve(__dirname, '..', 'dist'), {
     enableBrotli: true,
   }));
   app.get('*', (req, res) => {
