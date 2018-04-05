@@ -9,29 +9,35 @@ const passport = require('passport');
 
 const app = express();
 const port = process.env.PORT;
-const routes = require('./routes');
-const models = require('./models');
+const db = require('./db');
 
+// Middleware
 app.use(logger('dev'));
 app.use(compression());
 app.use(bodyParser.json());
 app.use(passport.initialize());
 
-models.sequelize.authenticate().then(() => {
+// MySQL
+db.connection.authenticate().then(() => {
   console.log('Connected to SQL database:', process.env.DB_NAME);
 }).catch((err) => {
   console.error('Unable to connect to SQL database:', process.env.DB_NAME, err);
 });
 
-app.use('/', routes);
+// Routes
+require('./routes/authRoutes')(app);
 
+// Development
 if (process.env.NODE_ENV === 'development') {
-  // create tables
-  models.sequelize.sync();
+  // create tables from models
+  db.connection.sync();
+  // db.connection.sync({ force: true });
+
   // devServer (catch all)
   require('./config/devServer')(app); // eslint-disable-line global-require
 }
 
+// Production
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.resolve(__dirname, '..', 'dist'), {
     enableBrotli: true,
