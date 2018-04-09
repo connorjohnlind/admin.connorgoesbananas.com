@@ -16,10 +16,10 @@ const connection = new Sequelize(
   },
 );
 
-fs.readdirSync(path.join(__dirname, 'models'))
-  .filter(file => (file.indexOf('.') !== 0) && (file.slice(-3) === '.js'))
+fs.readdirSync(__dirname)
+  .filter(file => (file !== path.basename(__filename)) && (file.indexOf('.') !== 0) && (file.slice(-3) === '.js'))
   .forEach((file) => {
-    const model = connection.import(path.join(__dirname, 'models', file));
+    const model = connection.import(path.join(__dirname, file));
     db[model.name] = model;
   });
 

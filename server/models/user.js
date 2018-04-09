@@ -34,5 +34,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
+  Model.prototype.getJWT = () => {
+    const secret = process.env.JWT_ENCRYPTION;
+    const expiration = parseInt(process.env.JWT_EXPIRATION, 10);
+    return `Bearer ${jwt.sign({ user_id: this.id }, secret, { expiresIn: expiration })}`;
+  };
+
   return Model;
 };

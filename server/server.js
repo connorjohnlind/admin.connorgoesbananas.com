@@ -25,7 +25,7 @@ db.connection.authenticate().then(() => {
 });
 
 // Routes
-require('./routes/authRoutes')(app);
+require('./routes/userRoutes')(app);
 
 // Development
 if (process.env.NODE_ENV === 'development') {
