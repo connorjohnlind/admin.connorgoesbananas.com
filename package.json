@@ -96,6 +96,7 @@
     "build:dev": "NODE_ENV=development rimraf dist && webpack --config=webpack.config.dev.js",
     "dev": "NODE_ENV=development nodemon --inspect --watch webpack.config.dev.js --watch server server/server.js",
     "prod": "heroku local -p 8080",
+    "server": "nodemon server/server.js",
     "heroku-postbuild": "npm run build"
   }
 }

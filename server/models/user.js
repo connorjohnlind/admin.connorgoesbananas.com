@@ -20,24 +20,39 @@ module.exports = (sequelize, DataTypes) => {
 
   Model.beforeSave(async (user) => {
     if (user.changed('password')) {
-      let err;
       let salt;
       let hash;
-
-      [err, salt] = await bcrypt.genSalt(10);
-      if (err) throw new Error(err.message);
-
-      [err, hash] = await bcrypt.hash(user.password, salt);
-      if (err) throw new Error(err.message);
-
+      try {
+        salt = await bcrypt.genSalt(10);
+        hash = await bcrypt.hash(user.password, salt);
+      } catch (e) {
+        throw new Error(e.message);
+      }
       user.password = hash;
     }
   });
+
+  Model.prototype.comparePassword = async (pw) => {
+    if (!this.password) throw new Error('Password not set');
+    let pass;
+    try {
+      pass = await bcrypt.compare(pw, this.password);
+      if (!pass) throw new Error('Invalid passowrd');
+    } catch (e) {
+      throw new Error(e.message);
+    }
+    return this;
+  };
 
   Model.prototype.getJWT = () => {
     const secret = process.env.JWT_ENCRYPTION;
     const expiration = parseInt(process.env.JWT_EXPIRATION, 10);
     return `Bearer ${jwt.sign({ user_id: this.id }, secret, { expiresIn: expiration })}`;
+  };
+
+  Model.prototype.toWeb = (pw) => {
+    const json = this.toJSON();
+    return json;
   };
 
   return Model;

@@ -5,17 +5,21 @@ const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const compression = require('compression');
-const passport = require('passport');
+// const passport = require('passport');
 
 const app = express();
 const port = process.env.PORT;
-const db = require('./db');
+const db = require('./models');
+
+// Routes
+const router = require('./routes/main');
 
 // Middleware
 app.use(logger('dev'));
 app.use(compression());
 app.use(bodyParser.json());
-app.use(passport.initialize());
+// app.use(passport.initialize());
+app.use('/', router);
 
 // MySQL
 db.connection.authenticate().then(() => {
@@ -23,9 +27,6 @@ db.connection.authenticate().then(() => {
 }).catch((err) => {
   console.error('Unable to connect to SQL database:', process.env.DB_NAME, err);
 });
-
-// Routes
-require('./routes/userRoutes')(app);
 
 // Development
 if (process.env.NODE_ENV === 'development') {
