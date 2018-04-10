@@ -16,7 +16,7 @@ const create = async (req, res) => {
       first, last, email, password,
     });
     const token = await user.getJWT();
-    res.json({ user, token });
+    res.json({ token });
   } catch (e) {
     res.status(400).send(e);
   }
@@ -45,7 +45,7 @@ const login = async (req, res) => {
     let user = await User.findOne({ where: { email } });
     user = await user.comparePassword(password);
     const token = await user.getJWT();
-    res.json({ user, token });
+    res.json({ token });
   } catch (e) {
     res.status(400).send(e);
   }

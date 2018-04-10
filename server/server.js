@@ -5,7 +5,7 @@ const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const compression = require('compression');
-// const passport = require('passport');
+const passport = require('passport');
 
 const app = express();
 const port = process.env.PORT;
@@ -18,7 +18,7 @@ const router = require('./routes/main');
 app.use(logger('dev'));
 app.use(compression());
 app.use(bodyParser.json());
-// app.use(passport.initialize());
+app.use(passport.initialize());
 app.use('/', router);
 
 // MySQL
