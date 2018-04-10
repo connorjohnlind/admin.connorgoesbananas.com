@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     last: DataTypes.STRING,
     email: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
       unique: true,
       validate: {
         isEmail: {
@@ -48,11 +48,6 @@ module.exports = (sequelize, DataTypes) => {
     const secret = process.env.JWT_ENCRYPTION;
     const expiration = parseInt(process.env.JWT_EXPIRATION, 10);
     return `Bearer ${jwt.sign({ user_id: this.id }, secret, { expiresIn: expiration })}`;
-  };
-
-  Model.prototype.toWeb = (pw) => {
-    const json = this.toJSON();
-    return json;
   };
 
   return Model;
