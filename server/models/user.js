@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  Model.prototype.comparePassword = async (pw) => {
+  Model.prototype.comparePassword = async function comparePassword(pw) {
     if (!this.password) throw new Error('Password not set');
     let pass;
     try {
@@ -44,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
     return this;
   };
 
-  Model.prototype.getJWT = () => {
+  Model.prototype.getJWT = async function getJWT() {
     const secret = process.env.JWT_ENCRYPTION;
     const expiration = parseInt(process.env.JWT_EXPIRATION, 10);
     return `Bearer ${jwt.sign({ user_id: this.id }, secret, { expiresIn: expiration })}`;
