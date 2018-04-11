@@ -27,6 +27,18 @@ const get = async (req, res) => {
   res.json(user);
 };
 
+const update = async (req, res) => {
+  const { user } = req;
+  const { body } = req;
+
+  try {
+    await user.update(body);
+    res.json({ message: `Updated user: ${user.email}` });
+  } catch (e) {
+    res.status(400).send(e);
+  }
+};
+
 const remove = async (req, res) => {
   const { user } = req; // req.user returned from passport middleware
 
@@ -53,5 +65,6 @@ const login = async (req, res) => {
 
 module.exports.create = create;
 module.exports.get = get;
+module.exports.update = update;
 module.exports.remove = remove;
 module.exports.login = login;
