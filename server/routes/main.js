@@ -12,6 +12,6 @@ router.get('/users', passport.authenticate('jwt', { session: false }), userContr
 router.put('/users', passport.authenticate('jwt', { session: false }), userController.update);
 router.delete('/users', passport.authenticate('jwt', { session: false }), userController.remove);
 router.post('/users/login', userController.login);
-// router.post('/users/renew', userController.renew);
+router.post('/users/renew', userController.renew);
 
 module.exports = router;

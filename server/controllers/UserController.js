@@ -24,7 +24,7 @@ const create = async (req, res) => {
 
 const get = async (req, res) => {
   const { user } = req; // req.user returned from passport middleware
-  res.json(user);
+  res.json({ email: user.email });
 };
 
 const update = async (req, res) => {
@@ -63,8 +63,22 @@ const login = async (req, res) => {
   }
 };
 
-module.exports.create = create;
-module.exports.get = get;
-module.exports.update = update;
-module.exports.remove = remove;
-module.exports.login = login;
+const renew = async (req, res) => {
+  const { token } = req.body;
+
+  try {
+    const user = await User.findByToken(token);
+    res.json({ email: user.email });
+  } catch (e) {
+    res.status(400).send(e);
+  }
+};
+
+module.exports = {
+  create,
+  get,
+  update,
+  remove,
+  login,
+  renew,
+};

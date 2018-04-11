@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 module.exports = (sequelize, DataTypes) => {
-  const Model = sequelize.define('User', {
+  const User = sequelize.define('User', {
     first: DataTypes.STRING,
     last: DataTypes.STRING,
     email: {
@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING,
   });
 
-  Model.beforeSave(async (user) => {
+  User.beforeSave(async (user) => {
     if (user.changed('password')) {
       let salt;
       let hash;
@@ -28,11 +28,23 @@ module.exports = (sequelize, DataTypes) => {
       } catch (e) {
         throw new Error(e.message);
       }
-      user.password = hash;
+      user.password = hash; // eslint-disable-line no-param-reassign
     }
   });
 
-  Model.prototype.comparePassword = async function comparePassword(pw) {
+  User.findByToken = async function findByToken(token) {
+    let user;
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_ENCRYPTION);
+      user = await this.findById(decoded.user_id);
+    } catch (e) {
+      throw new Error(e.message);
+    }
+    if (user) return user;
+    return null;
+  };
+
+  User.prototype.comparePassword = async function comparePassword(pw) {
     if (!this.password) throw new Error('Password not set');
     let pass;
     try {
@@ -44,11 +56,11 @@ module.exports = (sequelize, DataTypes) => {
     return this;
   };
 
-  Model.prototype.getJWT = async function getJWT() {
+  User.prototype.getJWT = async function getJWT() {
     const secret = process.env.JWT_ENCRYPTION;
     const expiration = parseInt(process.env.JWT_EXPIRATION, 10);
     return `Bearer ${jwt.sign({ user_id: this.id }, secret, { expiresIn: expiration })}`;
   };
 
-  return Model;
+  return User;
 };
